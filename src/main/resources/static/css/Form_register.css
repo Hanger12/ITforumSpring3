@@ -1,0 +1,125 @@
+*{
+    font-family: Areal, serif;
+}
+.tabcontent{
+    display: none;
+    width: 100%;
+    height:700px;
+}
+.tabcontent1{
+    width: 100%;
+    display: flex;
+    align-items: stretch;
+    flex-grow: 1;
+    min-height: 1px;
+}
+.body-header{
+    width: 100%;
+    height: 15%;
+    margin: 15px;
+    text-decoration: none;
+    font-size: 20px;
+    color: #fff;
+    font-weight: 600;
+    padding: 15px;
+    background-color: aqua;
+}
+.block-body{
+    width: 100%;
+    height: 50%;
+    background-color: red;
+}
+.node-icon {
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
+    width: 55px;
+    padding: 15px 0 15px 10px;
+}
+.node-body {
+    display: table;
+    table-layout: fixed;
+    width: 100%;
+}
+.p-body-inner {
+    padding-left: max(10px, env(safe-area-inset-left));
+    padding-right: max(10px, env(safe-area-inset-right));
+}
+.p-body-inner {
+    max-width: 1425px;
+    margin: 0 auto;
+    padding: 10px 10px 20px;
+}
+.p-body-inner {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+.p-body-inner {
+    padding-bottom: 20px;
+}
+body{
+    background:#eee;
+    color: #708090;
+}
+.icon-1x {
+    font-size: 24px !important;
+}
+a{
+    text-decoration:none;
+}
+.text-primary, a.text-primary:focus, a.text-primary:hover {
+    color: #00ADBB!important;
+}
+.text-black, .text-hover-black:hover {
+    color: #000 !important;
+}
+.font-weight-bold {
+    font-weight: 700 !important;
+}
+.b-popup{
+    width:100%;
+    min-height:100%;
+    background-color: rgba(0,0,0,0.5);
+    overflow:hidden;
+    position:fixed;
+    top:0px;
+}
+.b-popup .b-popup-content{
+    margin:200px auto 0px auto;
+    width:400px;
+    height: 400px;
+    padding:10px;
+    background-color: #c5c5c5;
+    border-radius:5px;
+    box-shadow: 0px 0px 10px #000;
+}
+.b-popup .b-popup-content2{
+    margin:150px auto 0px auto;
+    width:600px;
+    height: 500px;
+    padding:10px;
+    background-color: #c5c5c5;
+    border-radius:5px;
+    box-shadow: 0px 0px 10px #000;
+}
+
+.closebuttonform{
+    width: 30px;
+    height: 30px;
+    float: right;
+    background-color: transparent;
+    text-align: center;
+    font-size: 16px;
+}
+.Backwordbutton{
+    width: 30px;
+    height: 30px;
+    float: left;
+    background-color: transparent;
+    text-align: center;
+    font-size: 16px;
+}
+
+
+
