@@ -9,7 +9,7 @@ import java.util.List;
 @Repository
 public class customclassimpl implements customInterface
 {
-
+    //тест исправил репозиторий
     @Autowired
     private MongoTemplate mongoTemplate;
 
