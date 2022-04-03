@@ -4,6 +4,7 @@
     <title>Getting Started: Handing Form Submission</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
     <title>Spring_it_forum</title>
     <link rel="stylesheet"  th:href="@{/css/Form_register.css}">
@@ -65,9 +66,6 @@
 </nav>
 <div id="London" class="tabcontent1 ">
     <div class="p-body-inner">
-        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-            <button class="btn btn-primary btn-lg" style="background-color: lime" type="button">Новые сообщения</button>
-        </div>
         <div class="container">
             <button type="button" class="btn btn-success" onclick="location.href='/greeting'" th:if="${isSearch}">Back</button>
             <div class="row">
@@ -95,9 +93,9 @@
                     </div>
                 </div>
                 <!-- Sidebar content -->
-                <!--<div class="col-lg-3 mb-4 mb-lg-0 px-lg-0 mt-lg-0">
+                <div class="col-lg-3 mb-4 mb-lg-0 px-lg-0 mt-lg-0">
                     <div style="visibility: hidden; display: none; width: 285px; height: 801px; margin: 0px; float: none; position: static; inset: 85px auto auto;"></div><div data-settings="{&quot;parent&quot;:&quot;#content&quot;,&quot;mind&quot;:&quot;#header&quot;,&quot;top&quot;:10,&quot;breakpoint&quot;:992}" data-toggle="sticky" class="sticky" style="top: 85px;"><div class="sticky-inner">
-                    <a class="btn btn-lg btn-block btn-success rounded-0 py-4 mb-3 bg-op-6 roboto-bold" href="#">Ask Question</a>
+                    <a class="btn btn-lg btn-block btn-success rounded-0 py-4 mb-3 bg-op-6 roboto-bold" href="#">Оставить<br/>вопрос</a>
                     <div class="bg-white mb-3">
                         <h4 class="px-3 py-4 op-5 m-0">
                             Active Topics
@@ -147,7 +145,7 @@
                         </div>
                     </div>
                 </div></div>
-                </div>-->
+                </div>
             </div>
         </div>
     </div>
@@ -178,65 +176,44 @@
                     </div>
                 </div>
             </div>
-            <!-- Sidebar content -->
-            <!--<div class="col-lg-3 mb-4 mb-lg-0 px-lg-0 mt-lg-0">
-                <div style="visibility: hidden; display: none; width: 285px; height: 801px; margin: 0px; float: none; position: static; inset: 85px auto auto;"></div><div data-settings="{&quot;parent&quot;:&quot;#content&quot;,&quot;mind&quot;:&quot;#header&quot;,&quot;top&quot;:10,&quot;breakpoint&quot;:992}" data-toggle="sticky" class="sticky" style="top: 85px;"><div class="sticky-inner">
-                <a class="btn btn-lg btn-block btn-success rounded-0 py-4 mb-3 bg-op-6 roboto-bold" href="#">Ask Question</a>
-                <div class="bg-white mb-3">
-                    <h4 class="px-3 py-4 op-5 m-0">
-                        Active Topics
-                    </h4>
-                    <hr class="m-0">
-                    <div class="pos-relative px-3 py-3">
-                        <h6 class="text-primary text-sm">
-                            <a href="#" class="text-primary">Why Bootstrap 4 is so awesome? </a>
-                        </h6>
-                        <p class="mb-0 text-sm"><span class="op-6">Posted</span> <a class="text-black" href="#">39 minutes</a> <span class="op-6">ago by</span> <a class="text-black" href="#">AppStrapMaster</a></p>
-                    </div>
-                    <hr class="m-0">
-                    <div class="pos-relative px-3 py-3">
-                        <h6 class="text-primary text-sm">
-                            <a href="#" class="text-primary">Custom shortcut or command to launch command in terminal? </a>
-                        </h6>
-                        <p class="mb-0 text-sm"><span class="op-6">Posted</span> <a class="text-black" href="#">58 minutes</a> <span class="op-6">ago by</span> <a class="text-black" href="#">DanielD</a></p>
-                    </div>
-                    <hr class="m-0">
-                    <div class="pos-relative px-3 py-3">
-                        <h6 class="text-primary text-sm">
-                            <a href="#" class="text-primary">HELP! My Windows XP machine is down </a>
-                        </h6>
-                        <p class="mb-0 text-sm"><span class="op-6">Posted</span> <a class="text-black" href="#">48 minutes</a> <span class="op-6">ago by</span> <a class="text-black" href="#">DanielD</a></p>
-                    </div>
-                    <hr class="m-0">
-                    <div class="pos-relative px-3 py-3">
-                        <h6 class="text-primary text-sm">
-                            <a href="#" class="text-primary">HELP! My Windows XP machine is down </a>
-                        </h6>
-                        <p class="mb-0 text-sm"><span class="op-6">Posted</span> <a class="text-black" href="#">38 minutes</a> <span class="op-6">ago by</span> <a class="text-black" href="#">DanielD</a></p>
-                    </div>
-                    <hr class="m-0">
-                </div>
-                <div class="bg-white text-sm">
-                    <h4 class="px-3 py-4 op-5 m-0 roboto-bold">
-                        Stats
-                    </h4>
-                    <hr class="my-0">
-                    <div class="row text-center d-flex flex-row op-7 mx-0">
-                        <div class="col-sm-6 flex-ew text-center py-3 border-bottom border-right"> <a class="d-block lead font-weight-bold" href="#">58</a> Topics </div>
-                        <div class="col-sm-6 col flex-ew text-center py-3 border-bottom mx-0"> <a class="d-block lead font-weight-bold" href="#">1.856</a> Posts </div>
-                    </div>
-                    <div class="row d-flex flex-row op-7">
-                        <div class="col-sm-6 flex-ew text-center py-3 border-right mx-0"> <a class="d-block lead font-weight-bold" href="#">300</a> Members </div>
-                        <div class="col-sm-6 flex-ew text-center py-3 mx-0"> <a class="d-block lead font-weight-bold" href="#">DanielD</a> Newest Member </div>
-                    </div>
-                </div>
-            </div></div>
-            </div>-->
         </div>
     </div>
 </div>
 <div id="Tokyo" class="tabcontent">
-    <div class="question_block1">
+    <div class="content">
+        <div class="container">
+            <!-- end row -->
+            <div class="row">
+                <div class="col-lg-4">
+                    <div class="text-center card-box">
+                        <div class="member-card pt-2 pb-2">
+                            <div class="thumb-lg member-thumb mx-auto"><img src="https://bootdey.com/img/Content/avatar/avatar5.png" class="rounded-circle img-thumbnail" alt="profile-image"></div>
+                            <div class="">
+                                <h4>Joseph M. Rohr</h4>
+                                <p class="text-muted">@Webdesigner <span>| </span><span><a href="#" class="text-pink">websitename.com</a></span></p>
+                            </div>
+                            <button type="button" class="btn btn-primary mt-3 btn-rounded waves-effect w-md waves-light">перейти на страницу профиля</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <div class="text-right">
+                        <ul class="pagination pagination-split mt-0 float-right">
+                            <li class="page-item"><a class="page-link" href="#" aria-label="Previous"><span aria-hidden="true">«</span> <span class="sr-only">Previous</span></a></li>
+                            <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                            <li class="page-item"><a class="page-link" href="#">4</a></li>
+                            <li class="page-item"><a class="page-link" href="#">5</a></li>
+                            <li class="page-item"><a class="page-link" href="#" aria-label="Next"><span aria-hidden="true">»</span> <span class="sr-only">Next</span></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- container -->
     </div>
     <div id="app-7">
         <ol>
