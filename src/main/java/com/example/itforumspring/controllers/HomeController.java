@@ -4,10 +4,12 @@ import com.example.itforumspring.bdclass.Quastion;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
+import java.util.Objects;
 
 @Controller
 public class HomeController {
@@ -38,6 +40,14 @@ public class HomeController {
                                  RedirectAttributes redirect,Model model) {
         redirect.addAttribute("search",search);
 
+        return "redirect:/greeting";
+    }
+    @RequestMapping(value = "/submitForm",method = RequestMethod.POST)
+    public String submitForm(@RequestParam(name="UrlAvatar", defaultValue = "") String UrlAvatar, ModelMap modelMap){
+        if(!UrlAvatar.equals(""))
+        {
+            System.out.println(UrlAvatar);
+        }
         return "redirect:/greeting";
     }
 
