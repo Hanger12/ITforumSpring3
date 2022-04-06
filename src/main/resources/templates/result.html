@@ -40,7 +40,7 @@
                             <a class="nav-link" href="#" onclick="PopUpShow()">Войти</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Регистрация</a>
+                            <a class="nav-link" href="#" onclick="PopUpRegisterShow()">Регистрация</a>
                         </li>
                     </ul>
                 </div>
@@ -230,8 +230,8 @@
             </div>
             <div class="mb-3">
                 <label for="exampleInputEmail1" class="form-label">Логин</label>
-                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
-                <div id="emailHelp" class="form-text">Введите логин или email</div>
+                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="LoginHelp" required>
+                <div id="LoginHelp" class="form-text">Введите email</div>
             </div>
             <div class="mb-3">
                 <label for="exampleInputPassword1" class="form-label">Пароль</label>
@@ -239,6 +239,33 @@
                 <div id="passwordHelpBlock" class="form-text">Введите пароль</div>
             </div>
             <input type="submit" value="Войти" class="btn btn-primary">
+        </div>
+    </div>
+</form>
+<form name="Register" method="post" action="/greeting">
+    <div class="b-popup" id="popup2">
+        <div class="b-popup-content2">
+            <div class="title">
+                <button type="button" class="btn-close" aria-label="Close" onclick="PopUpRegisterHide()" style="float:right"></button>
+                <h1>Регистрация</h1>
+            </div>
+            <div class="mb-3">
+                <label for="Login1" class="form-label">Логин</label>
+                <input type="text" class="form-control" id="Login1" aria-describedby="LoginHelp1" required>
+                <div id="LoginHelp1" class="form-text">Введите логин</div>
+            </div>
+            <div class="mb-3">
+                <label for="InputPassword1" class="form-label">Пароль</label>
+                <input type="password" class="form-control" id="InputPassword1" required>
+                <div id="passwordBlock" class="form-text">Введите пароль</div>
+            </div>
+            <div class="mb-3">
+                <label for="Email" class="form-label">Email</label>
+                <input type="email" class="form-control" id="Email" required>
+                <div id="EmailHelp1" class="form-text">Введите Email</div>
+            </div>
+            <input class="form-control" type="file" id="formFile">
+            <input type="submit" value="Регистрация" class="btn btn-primary">
         </div>
     </div>
 </form>
@@ -275,6 +302,7 @@
 <script>
     $(document).ready(function(){
         PopUpHide();
+        PopUpRegisterHide();
     });
     //Функция отображения PopUp
     function PopUpShow(){
