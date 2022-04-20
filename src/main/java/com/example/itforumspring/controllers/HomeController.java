@@ -9,15 +9,14 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
-import java.util.Objects;
 
 @Controller
 public class HomeController {
     @Autowired
-    private com.example.itforumspring.QuastionRepository QuastionRepository;
+    private com.example.itforumspring.repositories.QuastionRepository QuastionRepository;
 
     @Autowired
-    private com.example.itforumspring.customInterface customInterface;
+    private com.example.itforumspring.repositories.customInterface customInterface;
 
     @RequestMapping(value={"/","/greeting"}, method= RequestMethod.GET)
     public String greetingForm(@RequestParam(name="search", defaultValue = "test") String search, Model model) {

@@ -1,4 +1,4 @@
-package com.example.itforumspring;
+package com.example.itforumspring.repositories;
 
 import com.example.itforumspring.bdclass.Quastion;
 

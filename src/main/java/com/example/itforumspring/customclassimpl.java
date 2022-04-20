@@ -1,6 +1,7 @@
 package com.example.itforumspring;
 
 import com.example.itforumspring.bdclass.Quastion;
+import com.example.itforumspring.repositories.customInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.BasicQuery;
