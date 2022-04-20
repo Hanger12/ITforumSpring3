@@ -18,7 +18,7 @@ public class HomeController {
     @Autowired
     private com.example.itforumspring.repositories.customInterface customInterface;
 
-    @RequestMapping(value={"/","/greeting"}, method= RequestMethod.GET)
+    @RequestMapping(value={"/greeting"}, method= RequestMethod.GET)
     public String greetingForm(@RequestParam(name="search", defaultValue = "test") String search, Model model) {
         List<Quastion> Quastion = null;
         System.out.println(search);
