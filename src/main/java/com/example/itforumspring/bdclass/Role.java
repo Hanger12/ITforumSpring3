@@ -8,16 +8,16 @@ import org.springframework.data.mongodb.core.index.Indexed;
 public class Role {
 
     @Id
-    private String id;
+    private long id;
     @Indexed(unique = true, direction = IndexDirection.DESCENDING, dropDups = true)
 
     private String role;
 
-    public String getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(long id) {
         this.id = id;
     }
 

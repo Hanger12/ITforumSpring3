@@ -8,21 +8,31 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document(collection ="Users")
 public class Users {
     @Id
-    private String id;
+    private long id;
     @Indexed(unique = true, direction = IndexDirection.DESCENDING, dropDups = true)
     private String email;
     private String password;
     private String fullname;
+    private String Nickname;
     private boolean enabled;
     private String URLimage;
+    private String post;
+    private String MFemale;
     @DBRef
     private Set<Role> roles;
 
-    public String getId() {
+    @Override
+    public String toString() {
+        return "Users{" +
+                "roles=" + roles +
+                '}';
+    }
+
+    public long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -72,5 +82,29 @@ public class Users {
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
+    }
+
+    public String getPost() {
+        return post;
+    }
+
+    public void setPost(String post) {
+        this.post = post;
+    }
+
+    public String getMFemale() {
+        return MFemale;
+    }
+
+    public void setMFemale(String MFemale) {
+        this.MFemale = MFemale;
+    }
+
+    public String getNickname() {
+        return Nickname;
+    }
+
+    public void setNickname(String nickname) {
+        Nickname = nickname;
     }
 }

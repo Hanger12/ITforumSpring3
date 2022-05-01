@@ -1,4 +1,5 @@
 package com.example.itforumspring.config;
+import com.example.itforumspring.bdclass.Role;
 import java.io.IOException;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -8,6 +9,9 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
+import org.springframework.ui.Model;
+import org.springframework.web.servlet.ModelAndView;
+
 @Component
 public class CustomizeAuthenticationSuccessHandler implements AuthenticationSuccessHandler{
     @Override
@@ -15,10 +19,12 @@ public class CustomizeAuthenticationSuccessHandler implements AuthenticationSucc
             throws IOException, ServletException {
         //set our response to OK status
         response.setStatus(HttpServletResponse.SC_OK);
-
         for (GrantedAuthority auth : authentication.getAuthorities()) {
-            if ("ADMIN".equals(auth.getAuthority())) {
-                response.sendRedirect("/dashboard");
+            if ("USER".equals(auth.getAuthority())) {
+                response.sendRedirect("/home");
+            }
+            if("ADMIN".equals(auth.getAuthority())) {
+                response.sendRedirect("/home");
             }
         }
     }

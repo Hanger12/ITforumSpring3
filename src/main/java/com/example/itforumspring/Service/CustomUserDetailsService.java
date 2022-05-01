@@ -3,10 +3,10 @@ import com.example.itforumspring.repositories.UserRepository;
 import com.example.itforumspring.repositories.RoleRepository;
 import com.example.itforumspring.bdclass.Role;
 import com.example.itforumspring.bdclass.Users;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+
+import java.util.*;
+
+import com.example.itforumspring.repositories.UserRepositoryCustom;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -18,18 +18,23 @@ import org.springframework.stereotype.Service;
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
     @Autowired
+    private UserRepositoryCustom userRepositorycustom;
+    @Autowired
     private UserRepository userRepository;
     @Autowired
     private RoleRepository roleRepository;
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
+    public List<Users> findAllUsers(){return userRepository.findAll();}
     public Users findUserByEmail(String email) {
         return userRepository.findByEmail(email);
     }
+    public Users findUserByID(long id) {return userRepository.findById(id);}
     public void saveUser(Users user) {
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         user.setEnabled(true);
-        Role userRole = roleRepository.findByRole("ADMIN");
+        user.setId(userRepositorycustom.getMaxId()+1);
+        Role userRole = roleRepository.findByRole("USER");
         user.setRoles(new HashSet<>(List.of(userRole)));
         userRepository.save(user);
     }

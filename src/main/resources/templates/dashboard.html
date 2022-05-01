@@ -8,6 +8,7 @@
 <div layout:fragment="content">
     <h1 th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</h1>
     <h2>This is your Admin Dashboard</h2>
+    <h2 th:utext="${fullName}"></h2>
 </div>
 </body>
 </html>
