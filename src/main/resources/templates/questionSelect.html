@@ -3,10 +3,11 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Все вопросы</title>
+    <title>выбранный вопрос</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
     <link rel="stylesheet"  th:href="@{/css/Form_register.css}">
 </head>
 <body>
@@ -67,25 +68,60 @@
             <!-- Main content -->
             <div class="col-lg-9 mb-3">
                 <!-- End of post 1 -->
-                <div class="card row-hover pos-relative py-3 px-3 mb-3 border-warning border-top-0 border-right-0 border-bottom-0 rounded-0" th:each="quastion:${Quastion}">
+                <div class="card row-hover pos-relative py-3 px-3 mb-3 border-warning border-top-0 border-right-0 border-bottom-0 rounded-0" >
                     <div class="row align-items-center">
                         <div class="col-md-8 mb-3 mb-sm-0">
                             <h5>
-                                <a th:href="@{'/home/questionSelect?id='+ ${quastion.id}}" class="text-primary" th:utext="${quastion.nameQuestion}"></a>
+                                <a href="#" class="text-primary" th:utext="${Question.nameQuestion}"></a>
                             </h5>
-                            <p th:each="user:${quastion.user}" class="text-sm"><span class="op-6">Публикация</span> <a class="text-black" href="#" th:utext="${quastion.datePublish}"></a> <span class="op-6">от
-                                </span> <a class="text-black" href="#" th:utext="${user.nickname}"></a>
+                            <p th:each="user:${Question.user}" class="text-sm">
+                                <span class="op-6">Публикация</span>
+                                <a class="text-black" href="#" th:utext="${Question.datePublish}"></a>
+                                <span class="op-6">от</span>
+                                <a class="text-black" href="#" th:utext="${user.nickname}"></a>
                                 <img th:src="@{${user.URLimage}}" alt="Avatar" style="width:35px" src="/static/img/9.jpg"/>
                             </p>
-                            <div class="text-sm op-5"> <span th:each="tag:${quastion.tags}"><a class="text-black mr-2" href="#" th:utext="${tag+';'}"></a></span></div>
+                            <h6 style="color: black" th:utext="${Question.description}"></h6>
+                            <div class="text-sm op-5"> <span th:each="tag:${Question.tags}"><a class="text-black mr-2" href="#" th:utext="${tag+';'}"></a></span></div>
                         </div>
-                        <!--<div class="col-md-4 op-7">
-                            <div class="row text-center op-7">
-                                <div class="col px-1"> <i>&#128489;</i> ответов <span class="d-block text-sm" th:text="${quastion.votes}"></span> </div>
-                                <div class="col px-1"> <i>&#128440;</i> просмотров <span class="d-block text-sm" th:text="${quastion.views}"></span> </div>
-                            </div>
-                        </div>-->
+                        <pre class="prettyprint" th:utext="${Question.code}">
+                        </pre>
                     </div>
+                </div>
+                <div class="card row-hover pos-relative py-3 px-3 mb-3 border-primary border-top-0 border-right-0 border-bottom-0 rounded-0" th:each="Answers:${AnswersOnQuestion}">
+                    <div class="row align-items-center">
+                        <div class="col-md-8 mb-3 mb-sm-0">
+                            <h6 style="color: black" th:utext="${Answers.descriptionAnswers}">
+                            </h6>
+                            <p th:each="user:${Answers.user}" class="text-sm">
+                                <span class="op-6">Публикация</span>
+                                <a class="text-black" href="#" th:utext="${Answers.getDatePublishAnswer()}"></a>
+                                <span class="op-6">от</span>
+                                <a class="text-black" href="#" th:utext="${user.nickname}"></a>
+                                <img th:src="@{${user.URLimage}}" alt="Avatar" style="width:35px" src="/static/img/9.jpg"/>
+                            </p>
+                        </div>
+                        <div class="col-md-4 op-7">
+                            <div class="row text-center op-7">
+                                <div class="col px-1"> <span class="d-block text-sm" >240 Views</span> </div>
+                            </div>
+                        </div>
+                        <pre class="prettyprint" th:utext="${Answers.codeAnswers}"></pre>
+                    </div>
+                </div>
+                <div class="card row-hover pos-relative py-3 px-3 mb-3 border-primary border-top-0 border-right-0 border-bottom-0 rounded-0" th:if="${Auth==true}">
+                    <form th:action="@{/home/questionSelect}" method="post">
+                        <div class="form-group">
+                            <label for="exampleFormControlTextarea1">Описание ответа</label>
+                            <textarea name="descriptionAnswer" class="form-control" id="exampleFormControlTextarea1" rows="5"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleFormControlTextarea2">код</label>
+                            <textarea name="CodeAnswer" class="form-control" id="exampleFormControlTextarea2" rows="5"></textarea>
+                        </div>
+                        <br>
+                        <button type="submit" class="btn btn-success">Отправить</button>
+                    </form>
                 </div>
             </div>
         </div>

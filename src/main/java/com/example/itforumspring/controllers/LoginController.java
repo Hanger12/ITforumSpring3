@@ -1,4 +1,7 @@
 package com.example.itforumspring.controllers;
+import com.example.itforumspring.Service.CustomAnswerService;
+import com.example.itforumspring.Service.CustomQuestionService;
+import com.example.itforumspring.bdclass.Answers;
 import com.example.itforumspring.bdclass.Quastion;
 import com.example.itforumspring.bdclass.Role;
 import com.example.itforumspring.bdclass.Users;
@@ -27,12 +30,13 @@ import java.util.List;
 public class LoginController {
     public static Boolean Authentication;
     public static Users usersAuth;
+    public static Quastion question;
     @Autowired
     private CustomUserDetailsService userService;
     @Autowired
-    private com.example.itforumspring.repositories.QuastionRepository QuastionRepository;
+    private CustomQuestionService questionService;
     @Autowired
-    private com.example.itforumspring.repositories.customInterface customInterface;
+    private CustomAnswerService answersService;
     @RequestMapping(value={"/home/Users"}, method=RequestMethod.GET)
     public ModelAndView Users(Model model)
     {
@@ -48,8 +52,7 @@ public class LoginController {
         {
             modelAndView.addObject("Auth", false);
         }
-        model.addAttribute("Usersw",users);
-        //modelAndView.addObject("Usersw",users);
+        modelAndView.addObject("Usersw",users);
         modelAndView.setViewName("users");
         return modelAndView;
     }
@@ -57,7 +60,11 @@ public class LoginController {
     public ModelAndView questions(Model model)
     {
         List<Quastion> Quastion = null;
-        Quastion = this.QuastionRepository.findAll();
+        Quastion = questionService.sortByDeskId();
+        for(Quastion questions:Quastion)
+        {
+            System.out.println(questions.getId());
+        }
         ModelAndView modelAndView = new ModelAndView();
         model.addAttribute("Quastion", Quastion);
         if(Authentication)
@@ -160,12 +167,65 @@ public class LoginController {
         }
         return modelAndView;
     }
-    @RequestMapping(value = "/AddQuestion",method = RequestMethod.GET)
+    @RequestMapping(value = "/home/AddQuestion",method = RequestMethod.GET)
     public ModelAndView AddQuestion()
     {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("questionAdd");
         return modelAndView;
+    }
+    @RequestMapping(value="/home/AddQuestion",method = RequestMethod.POST)
+    public String Question(@Valid Quastion quastion,
+                                 @RequestParam("nameQuestion") String nameQuestion,
+                                 @RequestParam("tags") String tags,
+                                 @RequestParam("description") String description,
+                                 @RequestParam("code") String code)
+    {
+        quastion.setNameQuestion(nameQuestion);
+        quastion.setTags(tags.split(";"));
+        quastion.setDescription(description);
+        quastion.setCode(code);
+        questionService.saveQuestion(quastion,usersAuth);
+        return "redirect:/home";
+    }
+    @RequestMapping(value = "/home/questionSelect", method = RequestMethod.GET)
+    public  ModelAndView questionSelect(@RequestParam("id") long id)
+    {
+        ModelAndView modelAndView = new ModelAndView();
+        question = questionService.findByIdQuestion(id);
+        List<Answers> answers = answersService.findAnswersbyQuestion(id);
+        for (Answers answer : answers)
+        {
+            System.out.println(answer.getDescriptionAnswers());
+            for(Users user:answer.getUser())
+            {
+                System.out.println(user.getEmail());
+            }
+        }
+        if(Authentication)
+        {
+            modelAndView.addObject("Users",usersAuth);
+            modelAndView.addObject("Auth", true);
+        }
+        else
+        {
+            modelAndView.addObject("Auth", false);
+        }
+        modelAndView.addObject("Question",question);
+        modelAndView.addObject("AnswersOnQuestion",answers);
+        modelAndView.setViewName("questionSelect");
+        return modelAndView;
+    }
+    @RequestMapping(value ="/home/questionSelect",method = RequestMethod.POST)
+    public String Answers(@Valid Answers answers,
+                          @RequestParam("descriptionAnswer") String descriptionAnswer,
+                          @RequestParam("CodeAnswer") String CodeAnswer)
+    {
+
+        answers.setDescriptionAnswers(descriptionAnswer);
+        answers.setCodeAnswers(CodeAnswer);
+        answersService.SaveAnswer(answers,question,usersAuth);
+        return "redirect:/home/questionSelect?id="+question.getId();
     }
     @RequestMapping(value = "/dashboard", method = RequestMethod.GET)
     public ModelAndView dashboard() {
@@ -202,10 +262,10 @@ public class LoginController {
             }
         }
         if(search.equals("test")) {
-            Quastion = this.QuastionRepository.findAll();
+            Quastion = questionService.sortByDeskId();
         }
         else{
-            Quastion = this.customInterface.findByTags(search);
+            Quastion = questionService.findQuestionByTags(search);
             model.addAttribute("isSearch",true);
         }
         model.addAttribute("Quastion", Quastion);
@@ -215,7 +275,6 @@ public class LoginController {
     public String greetingSubmit(@RequestParam(name="search", defaultValue = "test") String search,
                                  RedirectAttributes redirect, Model model) {
         redirect.addAttribute("search",search);
-
         return "redirect:/home";
     }
 }

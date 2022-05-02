@@ -1,4 +1,4 @@
-package com.example.itforumspring;
+package com.example.itforumspring.impl;
 
 import com.example.itforumspring.bdclass.Users;
 import com.example.itforumspring.repositories.UserRepository;

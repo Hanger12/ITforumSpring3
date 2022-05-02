@@ -1,95 +1,80 @@
 package com.example.itforumspring.bdclass;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.IndexDirection;
+import org.springframework.data.mongodb.core.index.Indexed;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.mongodb.core.mapping.Field;
+
+import java.util.Date;
+import java.util.Set;
 
 @Document(collection = "Quastion")
 public class Quastion {
     @Id
-    private String id;
-    @Field(value = "NameUser")
-    private String NameUser;
+    private long id;
+    @Indexed(unique = true, direction = IndexDirection.DESCENDING, dropDups = true)
+    private String nameQuestion;
+    private String[] tags;
+    private String description;
+    private String code;
+    private Date DatePublish;
+    @DBRef
+    private Set<Users> user;
 
-    @Field(value = "quastion")
-    private String Quastion;
-
-    @Field(value = "Tags")
-    private String tags;
-
-    @Field(value = "votes")
-    private int votes;
-
-    @Field(value = "views")
-    private int views;
-
-    @Field(value = "DatePublish")
-    private String DatePublish;
-
-    @Field(value = "AvatarUser")
-    private String AvatarUser;
-
-    public String getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(long id) {
         this.id = id;
     }
 
-    public String getNameUser() {
-        return NameUser;
+    public String getNameQuestion() {
+        return nameQuestion;
     }
 
-    public void setNameUser(String nameUser) {
-        NameUser = nameUser;
+    public void setNameQuestion(String nameQuestion) {
+        this.nameQuestion = nameQuestion;
     }
 
-    public String getQuastion() {
-        return Quastion;
-    }
-
-    public void setQuastion(String quastion) {
-        this.Quastion = quastion;
-    }
-
-    public String getTags() {
+    public String[] getTags() {
         return tags;
     }
 
-    public void setTags(String tags) {
+    public void setTags(String[] tags) {
         this.tags = tags;
     }
 
-    public int getVotes() {
-        return votes;
+    public String getDescription() {
+        return description;
     }
 
-    public void setVotes(int votes) {
-        this.votes = votes;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public int getViews() {
-        return views;
+    public String getCode() {
+        return code;
     }
 
-    public void setViews(int views) {
-        this.views = views;
+    public void setCode(String code) {
+        this.code = code;
     }
 
-    public String getDatePublish() {
+    public Date getDatePublish() {
         return DatePublish;
     }
 
-    public void setDatePublish(String datePublish) {
+    public void setDatePublish(Date datePublish) {
         DatePublish = datePublish;
     }
 
-    public String getAvatarUser() {
-        return AvatarUser;
+    public Set<Users> getUser() {
+        return user;
     }
 
-    public void setAvatarUser(String avatarUser) {
-        AvatarUser = avatarUser;
+    public void setUser(Set<Users> user) {
+        this.user = user;
     }
 }

@@ -1,10 +1,13 @@
-package com.example.itforumspring;
+package com.example.itforumspring.impl;
 
 import com.example.itforumspring.bdclass.Quastion;
 import com.example.itforumspring.repositories.customInterface;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.annotation.Order;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.BasicQuery;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -16,10 +19,21 @@ public class customclassimpl implements customInterface
     private MongoTemplate mongoTemplate;
 
     @Override
-    public long getMaxId() {
-        return 0;
+    public List<Quastion> SortByID() {
+        Query query = new Query().with(Sort.by(Sort.Direction.DESC, "_id"));
+        return mongoTemplate.find(query,Quastion.class);
     }
 
+    @Override
+    public long getMaxId() {
+        Query query = new Query().with(Sort.by(Sort.Direction.DESC, "_id"));
+        query.limit(1);
+        Quastion maxObject = mongoTemplate.findOne(query, Quastion.class);
+        if (maxObject == null) {
+            return 0L;
+        }
+        return maxObject.getId();
+    }
     @Override
     public List<Quastion> findByTags(String tags) {
         String criteria = "{ Tags: { $all : [";
