@@ -188,6 +188,12 @@ public class LoginController {
         questionService.saveQuestion(quastion,usersAuth);
         return "redirect:/home";
     }
+    @RequestMapping(value = "/home/correct",method = RequestMethod.GET)
+    public String CorrectAnswer(@RequestParam("id") long id)
+    {
+        answersService.UpdateAnswers(id);
+        return "redirect:/home/questionSelect?id="+question.getId();
+    }
     @RequestMapping(value = "/home/questionSelect", method = RequestMethod.GET)
     public  ModelAndView questionSelect(@RequestParam("id") long id)
     {
@@ -226,17 +232,6 @@ public class LoginController {
         answers.setCodeAnswers(CodeAnswer);
         answersService.SaveAnswer(answers,question,usersAuth);
         return "redirect:/home/questionSelect?id="+question.getId();
-    }
-    @RequestMapping(value = "/dashboard", method = RequestMethod.GET)
-    public ModelAndView dashboard() {
-        ModelAndView modelAndView = new ModelAndView();
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        Users user = userService.findUserByEmail(auth.getName());
-        modelAndView.addObject("currentUser", user);
-        modelAndView.addObject("fullName", "Welcome " + user.getFullname());
-        modelAndView.addObject("adminMessage", "Content Available Only for Users with Admin Role");
-        modelAndView.setViewName("dashboard");
-        return modelAndView;
     }
     @RequestMapping(value = {"/","/home"}, method = RequestMethod.GET)
     public String greetingForm(@RequestParam(name="search", defaultValue = "test") String search, Model model) {

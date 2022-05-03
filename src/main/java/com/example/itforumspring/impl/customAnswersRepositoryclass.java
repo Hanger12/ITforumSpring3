@@ -6,7 +6,9 @@ import com.example.itforumspring.repositories.AnswersRepositoryCustom;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -22,5 +24,13 @@ public class customAnswersRepositoryclass implements AnswersRepositoryCustom {
             return 0L;
         }
         return maxObject.getId();
+    }
+    public void update(long id){
+        Query query = new Query();
+        query.addCriteria(Criteria.where("id").is(id));
+        Answers update = mongoTemplate.findOne(query, Answers.class);
+        assert update != null;
+        update.setCorrect(true);
+        mongoTemplate.save(update);
     }
 }

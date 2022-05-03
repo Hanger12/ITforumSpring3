@@ -77,7 +77,7 @@
                                 </span> <a class="text-black" href="#" th:utext="${user.nickname}"></a>
                                 <img th:src="@{${user.URLimage}}" alt="Avatar" style="width:35px" src="/static/img/9.jpg"/>
                             </p>
-                            <div class="text-sm op-5"> <span th:each="tag:${quastion.tags}"><a class="text-black mr-2" href="#" th:utext="${tag+';'}"></a></span></div>
+                            <div class="text-sm op-5"> <span th:each="tag:${quastion.tags}"><a class="text-black mr-2" href="#" th:utext="${'#'+tag+' '}"></a></span></div>
                         </div>
                         <!--<div class="col-md-4 op-7">
                             <div class="row text-center op-7">

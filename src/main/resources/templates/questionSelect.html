@@ -82,7 +82,7 @@
                                 <img th:src="@{${user.URLimage}}" alt="Avatar" style="width:35px" src="/static/img/9.jpg"/>
                             </p>
                             <h6 style="color: black" th:utext="${Question.description}"></h6>
-                            <div class="text-sm op-5"> <span th:each="tag:${Question.tags}"><a class="text-black mr-2" href="#" th:utext="${tag+';'}"></a></span></div>
+                            <div class="text-sm op-5"> <span th:each="tag:${Question.tags}"><a class="text-black mr-2" href="#" th:utext="${'#'+tag+' '}"></a></span></div>
                         </div>
                         <pre class="prettyprint" th:utext="${Question.code}">
                         </pre>
@@ -102,8 +102,9 @@
                             </p>
                         </div>
                         <div class="col-md-4 op-7">
-                            <div class="row text-center op-7">
-                                <div class="col px-1"> <span class="d-block text-sm" >240 Views</span> </div>
+                            <div class="row text-center op-7" th:each="user:${Question.user}" th:if="${Users.getNickname()==user.nickname}">
+                                <div class="col px-1" th:if="${Answers.getCorrect()==false}"> <a class="btn btn-success mt-3 btn-rounded waves-effect w-md waves-light" th:href="@{'/home/correct?id='+ ${Answers.id}}" role="button">отметить правильным</a> </div>
+                                <div class="col px-1" th:if="${Answers.getCorrect()==true}">&#9989;</div>
                             </div>
                         </div>
                         <pre class="prettyprint" th:utext="${Answers.codeAnswers}"></pre>
