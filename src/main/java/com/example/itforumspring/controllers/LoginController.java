@@ -56,6 +56,82 @@ public class LoginController {
         modelAndView.setViewName("users");
         return modelAndView;
     }
+    @RequestMapping(value = {"/AdminPanel"},method=RequestMethod.GET)
+    public ModelAndView AdminPanel()
+    {
+        ModelAndView modelAndView = new ModelAndView();
+        List<Users> User;
+        List<Quastion> Question;
+        List<Answers>  Answer;
+        User = userService.findAllUsers();
+        Question = questionService.sortByDeskId();
+        Answer = answersService.findAllAnswers();
+        if(Authentication)
+        {
+            modelAndView.addObject("Users",usersAuth);
+            modelAndView.addObject("Auth", true);
+        }
+        else
+        {
+            modelAndView.addObject("Auth", false);
+        }
+        modelAndView.addObject("User",User);
+        modelAndView.addObject("Question",Question);
+        modelAndView.addObject("Answer",Answer);
+        modelAndView.setViewName("AdminPanel");
+        return modelAndView;
+    }
+    @RequestMapping(value={"/deleteQuestion"},method=RequestMethod.GET)
+    public String deleteQuestion(@RequestParam("idQuestion") long idQuestion)
+    {
+        System.out.println(idQuestion);
+        List<Answers>  answers;
+        answers = answersService.findAnswersbyQuestion(idQuestion);
+        if(answers!=null)
+        {
+            for(Answers answer: answers)
+            {
+                answersService.deleteAnswers(answer);
+            }
+        }
+        Quastion quastion = questionService.findByIdQuestion(idQuestion);
+        questionService.deleteQuestion(quastion);
+        return "redirect:/AdminPanel";
+    }
+    @RequestMapping(value={"/deleteAnswers"},method=RequestMethod.GET)
+    public String deleteAnswer(@RequestParam("idAnswer") long idAnswer)
+    {
+        Answers answers = answersService.findAnswersbyId(idAnswer);
+        answersService.deleteAnswers(answers);
+        return "redirect:/AdminPanel";
+    }
+    @RequestMapping(value={"/deleteUser"},method=RequestMethod.GET)
+    public String Delete(@RequestParam("idUser") long idUser)
+    {
+        Users user = userService.findUserByID(idUser);
+        for(Role role:user.getRoles())
+        {
+            if(!role.getRole().equals("ADMIN"))
+            {
+                List<Answers> answers = answersService.findAnswersbyUser(idUser);
+                for (Answers answer : answers)
+                {
+                    answersService.deleteAnswers(answer);
+                }
+                List<Quastion> questions = questionService.findQuestionbyUser(idUser);
+                for (Quastion question:questions)
+                {
+                    for(Answers answer:answersService.findAnswersbyQuestion(question.getId()))
+                    {
+                        answersService.deleteAnswers(answer);
+                    }
+                    questionService.deleteQuestion(question);
+                }
+                userService.deleteUser(user);
+            }
+        }
+        return "redirect:/AdminPanel";
+    }
     @RequestMapping(value={"/home/questions"}, method=RequestMethod.GET)
     public ModelAndView questions(Model model)
     {
@@ -141,6 +217,10 @@ public class LoginController {
                 stream.write(bytes);
                 stream.close();
                 System.out.println("Загрузка удалась");
+                BufferedOutputStream stream1=
+                        new BufferedOutputStream(new FileOutputStream("target/classes/static/img/"+img.getOriginalFilename()));
+                stream1.write(bytes);
+                stream1.close();
             } catch (Exception e) {
                 System.out.println("Загрузка не удалась"+e.getMessage());
             }

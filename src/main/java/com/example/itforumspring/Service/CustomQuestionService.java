@@ -24,6 +24,12 @@ public class CustomQuestionService {
         quastion.setDatePublish(data);
         quastionRepository.save(quastion);
     }
+    public void deleteQuestion(Quastion question){
+        quastionRepository.delete(question);
+    }
+    public List<Quastion> findQuestionbyUser(long userId){
+        return quastionRepository.findQuestionbyUser(userId);
+    }
     public List<Quastion> sortByDeskId()
     {
        return quastioninterface.SortByID();

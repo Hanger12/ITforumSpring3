@@ -33,6 +33,22 @@ public class CustomAnswerService {
     public List<Answers> findAnswersbyQuestion(long questionId) {
         return answersRepository.findAnswersbyQuestionId(questionId);
     }
+    public List<Answers> findAllAnswers()
+    {
+        return answersRepository.findAll();
+    }
+    public void deleteAnswers(Answers answers)
+    {
+        answersRepository.delete(answers);
+    }
+    public List<Answers> findAnswersbyUser(long idUser)
+    {
+       return answersRepository.findAnswersbyUsersId(idUser);
+    }
+    public Answers findAnswersbyId(long idAnswer)
+    {
+        return answersRepository.findById(idAnswer);
+    }
     public void UpdateAnswers(long id)
     {
        answersRepositoryCustom.update(id);

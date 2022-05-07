@@ -38,6 +38,10 @@ public class CustomUserDetailsService implements UserDetailsService {
         user.setRoles(new HashSet<>(List.of(userRole)));
         userRepository.save(user);
     }
+    public void deleteUser(Users user)
+    {
+        userRepository.delete(user);
+    }
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         Users user = userRepository.findByEmail(email);

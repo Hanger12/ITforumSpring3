@@ -10,4 +10,7 @@ import java.util.List;
 public interface AnswersRepository extends MongoRepository<Answers, Long> {
     @Query(value="{'question.$id':?0}")
     List<Answers> findAnswersbyQuestionId(long questionId);
+    @Query(value = "{'user.$id':?0}")
+    List<Answers> findAnswersbyUsersId(long userId);
+    Answers findById(long id);
 }
